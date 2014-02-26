@@ -1,7 +1,7 @@
 import java.util.Random;
 
-class SS {
-    Random rnd = new Random();
+public class SS {
+    //public static Random rnd = new Random();
 
     /** 
      * Return whether n is probably prime with accurary k 
@@ -9,14 +9,19 @@ class SS {
     public static boolean ss(int n, int k) {
 
         // Handle even numbers
-        if (n % 2 == 0) {
-            return false;
-        }
+        //if (n % 2 == 0) {
+            //return false;
+        //}
 
         for (int i = 0; i < k; i++) {
-            int a = rnd.randint(2, n);
-            x = a/n;
-            if (x == 0 || Math.pow(a, (n - 1) / 2) != x)
+            // Choose a randomly in interval [2, n - 1]
+            int a = (int)(Math.random() * (n - 2)) + 2;
+            double x = (double)a/n;
+
+            System.out.println("a =" + a);
+            if (x == 0)
+                return false;
+            if ((Math.pow(a, (n - 1) / 2) % n) != x)
                 return false;
         }
         

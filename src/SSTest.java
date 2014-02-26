@@ -1,7 +1,7 @@
-class SSTest {
+public class SSTest {
     public static void main(String[] args) {
-        for (int k = 0; k < 100; k++) {
-            System.out.println(k + ": " + SS.ss(k));
+        for (int n = 2; n < 100; n++) {
+            System.out.println(n + ": " + SS.ss(n, 25));
         }
     }
 }
