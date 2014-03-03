@@ -14,8 +14,8 @@ public class mainClass {
 	
 	static boolean doTrialDivision = false;
 	static boolean doSS = false;
-	static boolean doAKS = false;
-	static boolean doMR = true;
+	static boolean doAKS = true;
+	static boolean doMR = false;
 	
 	public static void main(String[] args) {
 		double[] error;
@@ -79,7 +79,7 @@ public class mainClass {
 			results = new boolean[numberOfInputs];
 			time = System.nanoTime();
 			for(int i = 0; i<numberOfInputs; i++){
-				//results[i] = AKS.doAKS(inputs[i]);
+				results[i] = AKS.doAKS(inputs[i]);
 			}
 			time = System.nanoTime() - time;
 
