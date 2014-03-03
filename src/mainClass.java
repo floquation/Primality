@@ -11,10 +11,10 @@ public class mainClass {
 	static boolean[] results;
 	static int[] inputs = new int[numberOfInputs];
 	
-	static boolean doTrialDivision = true;
+	static boolean doTrialDivision = false;
 	static boolean doSS = true;
-	static boolean doAKS = true;
-	static boolean doMR = true;
+	static boolean doAKS = false;
+	static boolean doMR = false;
 	
 	public static void main(String[] args) {
 		//Generate Input:
