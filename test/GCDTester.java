@@ -32,12 +32,12 @@ public class GCDTester {
 	
 	@Test
 	public void testGCD() {
-		assertEquals(answer, SS.gcd(a, b));
+		assertEquals(answer, Utils.gcd(a, b));
 	}
 	
 	@Test
 	public void testGCDReverse() {
-		assertEquals(answer, SS.gcd(b, a));
+		assertEquals(answer, Utils.gcd(b, a));
 	}
 
 }
