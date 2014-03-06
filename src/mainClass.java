@@ -13,9 +13,10 @@ public class mainClass {
 	static int[] inputs = new int[numberOfInputs];
 	
 	static boolean doTrialDivision = false;
-	static boolean doSS = false;
-	static boolean doAKS = true;
+	static boolean doSS = true;
+	static boolean doAKS = false;
 	static boolean doMR = false;
+	static boolean doWheelSieve = true;
 	
 	public static void main(String[] args) {
 		double[] error;
@@ -58,15 +59,15 @@ public class mainClass {
 			results = new boolean[numberOfInputs];
 			time = System.nanoTime();
 			for(int i = 0; i<numberOfInputs; i++){
-				//results[i] = SS.doSS(inputs[i]);
+				results[i] = SS.ss(inputs[i], 1);
 			}
 			time = System.nanoTime() - time;
 			
 			//Output:
-			for(int i = 0; i<numberOfInputs; i++){
+			/*for(int i = 0; i<numberOfInputs; i++){
 				System.out.println("(SS) The number " + inputs[i] + " is " + (results[i]?"a prime":"a composite") + " -- " +
 						(correctResults[i] == results[i]?"correct.":"INCORRECT!!!"));
-			}
+			}*/
 			System.out.println("Execution time was: " + time/1000000000d + "s");
 			
 			error = computeError(results,correctResults);
@@ -111,6 +112,29 @@ public class mainClass {
 			}*/
 			System.out.println("Execution time was: " + time/1000000000d + "s");
 			
+			error = computeError(results,correctResults);
+			System.out.println("Primes fraction predicted correct = " + (1-error[0]) + "; Composite fraction predicted correct = " + (1-error[1]));
+			results = null;
+		}
+		
+		//WheelSieve:
+		if(doWheelSieve){
+			results = new boolean[numberOfInputs];
+			time = System.nanoTime();
+			for(int i = 0; i<numberOfInputs; i++){
+				results[i] = WheelSieve.wheelSieve(inputs[i]);
+				if (results[i] != correctResults[i])
+					System.out.println("hallo" + inputs[i] + results[i]);
+			}
+			time = System.nanoTime() - time;
+
+			//Output:
+				/*for(int i = 0; i<numberOfInputs; i++){
+						System.out.println("(MR) The number " + inputs[i] + " is " + (results[i]?"a prime":"a composite") + " -- " +
+								(correctResults[i] == results[i]?"correct.":"INCORRECT!!!"));
+					}*/
+			System.out.println("Execution time was: " + time/1000000000d + "s");
+
 			error = computeError(results,correctResults);
 			System.out.println("Primes fraction predicted correct = " + (1-error[0]) + "; Composite fraction predicted correct = " + (1-error[1]));
 			results = null;
