@@ -2,40 +2,40 @@
 
 public class SS {
 
+	/**
+	 * Calculate the jacobi number
+	 * @param a
+	 * @param n
+	 * @return 1, -1 or 0
+	 */
 	public static int jacobi(int a, int n) {
-		int res = Integer.MIN_VALUE;
+		int res = 1;
+
+		while(a > 1) {
+			// Property 2
+			if (n != 0)
+				a %= n;
+			
+			// Property 1
+			while(a % 2 == 0 && a != 0) {
+				// Property 5
+				if (n % 8 == 3 || n % 8 == 5)
+					res *= -1;
+				else if (n % 8 == 1 || n % 8 == 7)
+					res *= 1;
+				else
+					res *= 0;
+				a /= 2;
+			}
+			
+			// Property 3
+			res *= (int) (Math.pow(-1, (a - 1) * (n - 1) / 4));
+			int temp = a;
+			a = n; n = temp;
+		}
 
 		// Property 4
-		if (a == 1) {
-			res = 1;
-		}
-
-		// Property 5
-		else if (a == 2) {
-			if (n % 8 == 3 || n % 8 == 5)
-				res = -1;
-			else if (n % 8 == 1 || n % 8 == 7)
-				res = 1;
-			else {
-				res = 0;
-			}
-		}
-
-		else {
-			// Property 2
-			if(n != 0)
-				a %= n;
-			else
-				return 0;
-
-			// Property 1
-			if(a % 2 == 0 && a != 0) {
-				res = jacobi(2, n) * jacobi(a / 2, n); // OOPS
-			} else
-				// Property 3 (assumption, because otherwise i'm out of rules)
-				res = (int) (Math.pow(-1, (a - 1) * (n - 1) / 4)) * jacobi(n, a);
-		}
-		return res;
+		return a * res;
 	}
 
 	/** 
