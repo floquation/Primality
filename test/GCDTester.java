@@ -21,7 +21,7 @@ public class GCDTester {
 	}
 	
 	@Parameterized.Parameters
-	public static Collection testCases() {
+	public static Collection<Object[]> testCases() {
 		return Arrays.asList(new Object[][] {
 				{13, 13, 13},
 				{37, 600, 1},

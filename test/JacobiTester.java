@@ -21,7 +21,7 @@ public class JacobiTester {
 	}
 	
 	@Parameterized.Parameters
-	public static Collection testCases() {
+	public static Collection<Object[]> testCases() {
 		return Arrays.asList(new Object[][] {
 				{191, 279, 1},
 				{277, 305, 1},
