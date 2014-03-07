@@ -7,7 +7,7 @@ public class AKS2 {
 		for(int a = 2; a < n; a++) {
 			for(int b = 2; b < n; b++) {
 				int p = (int)Math.pow(a, b);
-				System.out.println("P is " + p);
+				//System.out.println("P is " + p);
 				if (p > n)
 					break;
 				else if (p == n)
@@ -17,12 +17,26 @@ public class AKS2 {
 		
 		// 2. Find r such that o_r(n) > (log n)**2
 		int logSquared = (int)Math.pow(Math.log(n) / Math.log(2), 2);
+		//int logSquared = (int)Math.pow(log2(n), 2);
 		int r = 2;
 		
 		// FIXME: infinite loop so I added r < n
 		while (multiplicativeOrder(r, n) <= logSquared && r < n)
 			r++;
 		
+		// 3. 1 < gcd(a, n) < n for a < r, composite
+		for(int a = 1; a <= r; a++) {
+			int g = Utils.gcd(a, n);
+			if (1 < g && g < n) 
+				return false;
+		}
+		
+		// 4
+		if(n <= r)
+			return true;
+		
+		// 5
+		// No efficient way to calculate totient?
 		throw new RuntimeException("TODO");
 	}
 	
@@ -40,6 +54,7 @@ public class AKS2 {
 	}
 	
 	public static int log2(int bits) {
+		// untested
 		return 31 - Integer.numberOfLeadingZeros(bits);
 	}
 	
@@ -48,7 +63,7 @@ public class AKS2 {
 		// quick test
 		System.out.println(multiplicativeOrder(4, 7));
 		
-		for (int i = 0; i < 10; i++)
+		for (int i = 0; i <= 20; i++)
 			System.out.println(i + ": " + AKS2.aks(i));
 	}
 }
