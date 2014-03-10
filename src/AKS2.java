@@ -4,24 +4,18 @@ public class AKS2 {
 		if (n < 2) return false;
 		
 		// 1. Check if n = a**b
-		for(int a = 2; a < n; a++) {
-			for(int b = 2; b < n; b++) {
-				int p = (int)Math.pow(a, b);
-				//System.out.println("P is " + p);
-				if (p > n)
-					break;
-				else if (p == n)
-					return false;
-			}
+		for(int b = 2; b <= (int)(Math.log(n)/Math.log(2)); b++) {
+			double a = Math.pow(n,1d/b);
+			if(Math.floor(a) == a) return false;
 		}
 		
 		// 2. Find r such that o_r(n) > (log n)**2
 		int logSquared = (int)Math.pow(Math.log(n) / Math.log(2), 2);
 		//int logSquared = (int)Math.pow(log2(n), 2);
-		int r = 2;
 		
-		// FIXME: infinite loop so I added r < n
-		while (multiplicativeOrder(r, n) <= logSquared && r < n)
+		// maybe not in order log n but seems to work
+		int r = 2;
+		while (multiplicativeOrder(n, r) <= logSquared) // && r < n)
 			r++;
 		
 		// 3. 1 < gcd(a, n) < n for a < r, composite
@@ -31,6 +25,9 @@ public class AKS2 {
 				return false;
 		}
 		
+		return true;
+		
+		/*
 		// 4
 		if(n <= r)
 			return true;
@@ -38,13 +35,14 @@ public class AKS2 {
 		// 5
 		// No efficient way to calculate totient?
 		throw new RuntimeException("TODO");
+		*/
 	}
 	
 	private static int multiplicativeOrder(int a, int n) {
 		if (Utils.gcd(a, n) != 1)
 			return 0;
 		
-		for(int i = 1; i < n; i++) {
+		for(int i = 1; i < n*10000000; i++) {
 			//System.out.println("ain" + a + i + n + ": " + Utils.modular_pow(a, i, n));
 			if(Utils.modular_pow(a, i, n) == 1)
 				return i;
