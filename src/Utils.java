@@ -1,6 +1,6 @@
 
 public class Utils {
-	public static int modular_pow(int a, int b, int m) {
+	public static int XXXmodular_pow(int a, int b, int m) {
 		int tempo;
 		if (b == 0){
 			tempo = 1;  //EXIT condition
@@ -15,6 +15,22 @@ public class Utils {
 				tempo = ((temp*temp)%m)*a%m;
 		}
 		return tempo;
+	}
+	
+	public static int modular_pow(long a, long b, long m) {
+		long product = 1;
+		while (b > 0) {
+			if (b % 2 == 0) {
+				a *= a; // square it
+				a %= m;
+				b /= 2;
+			} else {
+				product *= a;
+				product %= m;
+				b -= 1;
+			}
+		}
+		return (int)(product % m);
 	}
 	
 	/**
