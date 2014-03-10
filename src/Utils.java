@@ -17,8 +17,9 @@ public class Utils {
 		return tempo;
 	}
 	
-	public static int modular_pow(long a, long b, long m) {
-		long product = 1;
+	public static int modular_pow(long a, int b, int m) {
+		a %= m;
+		long product = (1 % m);
 		while (b > 0) {
 			if (b % 2 == 0) {
 				a *= a; // square it
@@ -30,7 +31,7 @@ public class Utils {
 				b -= 1;
 			}
 		}
-		return (int)(product % m);
+		return (int)product;
 	}
 	
 	/**

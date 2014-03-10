@@ -27,6 +27,7 @@ public class ModexpTester {
 		return Arrays.asList(new Object[][] {
 				{5, 0, 1, 0},
 				{0, 5, 1, 0},
+				{5, 10, 7, 2},
 				{12, 53, 7, 3},
 				{56, 49, 75, 71},
 				{123, 456, 789, 699},
