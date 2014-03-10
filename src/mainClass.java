@@ -1,22 +1,57 @@
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Arrays;
 
 
 public class mainClass {
-	static long time;
-	
-	static int numberOfInputs = 50000;
+
+	/* INPUT */
+	static int numberOfInputs = 100000;
 	static int input_minValue = 4;
-	static int input_maxValue = 10000;
+	static int input_maxValue = 50000;
+	
+	static boolean doTrialDivision = true;
+	static boolean doSS = true;
+	static boolean doAKS = false;
+	static boolean doMR = true;
+	static boolean doWheelSieve = true;	
+	
+	
+	/* OUTPUT */
+	static boolean appendFiles = true; //Turn to false to create new files, overwriting all existing ones.
+	
+	static String MR_fileName = "MR.txt";
+	static String AKS_fileName = "AKS.txt";
+	static String SS_fileName = "SS.txt";
+	static String TrialDivision_fileName = "TD.txt";
+	static String WheelSieve_fileName = "WS.txt";
+
+	
+	/* VARIABLES */
+	static long time;
 	
 	static boolean[] results;
 	static boolean[] correctResults;
 	static int[] inputs = new int[numberOfInputs];
 	
-	static boolean doTrialDivision = false;
-	static boolean doSS = true;
-	static boolean doAKS = false;
-	static boolean doMR = false;
-	static boolean doWheelSieve = true;
+	
+	/* CODE */
+	
+	
+	private static boolean writeToFile(String fileName, int N, int minValue, int maxValue, double[] error, double time, boolean append){
+		FileWriter fw;
+		try {
+			fw = new FileWriter(fileName,append);
+			
+			fw.write(N + ", " + minValue + ", " + maxValue + ", " + time + ", " + (1-error[0]) + ", " + (1-error[1]) + "\n");			
+			
+			
+			fw.close();
+		} catch (IOException e) {
+			return false;
+		}
+		return true;
+	}
 	
 	public static void main(String[] args) {
 		double[] error;
@@ -45,12 +80,14 @@ public class mainClass {
 			time = System.nanoTime() - time;
 			
 			if(doTrialDivision){
+				writeToFile(TrialDivision_fileName, numberOfInputs, input_minValue, input_maxValue, new double[]{0,0}, time/1000000000d, appendFiles);
+				
 				//Output:
-				for(int i = 0; i<numberOfInputs; i++){
+				System.out.println("<<Trial Division>>");
+				/*for(int i = 0; i<numberOfInputs; i++){
 					System.out.println("The number " + inputs[i] + " is " + (correctResults[i]?"":"not ") + "a prime");
-				}
+				}*/
 				System.out.println("Execution time was: " + time/1000000000d + "s");
-				correctResults = null;
 			}
 			
 		
@@ -63,15 +100,25 @@ public class mainClass {
 			}
 			time = System.nanoTime() - time;
 			
+			
 			//Output:
+			System.out.println("<<SS>>");
 			/*for(int i = 0; i<numberOfInputs; i++){
 				System.out.println("(SS) The number " + inputs[i] + " is " + (results[i]?"a prime":"a composite") + " -- " +
 						(correctResults[i] == results[i]?"correct.":"INCORRECT!!!"));
 			}*/
+			for(int i = 0; i<numberOfInputs; i++){
+				if(correctResults[i] != results[i] && correctResults[i] == true)
+				System.out.println("(SS) The number " + inputs[i] + " is " + (results[i]?"a prime":"a composite") + " -- " +
+					(correctResults[i] == results[i]?"correct.":"INCORRECT!!!"));
+			}
 			System.out.println("Execution time was: " + time/1000000000d + "s");
 			
 			error = computeError(results,correctResults);
 			System.out.println("Primes fraction predicted correct = " + (1-error[0]) + "; Composite fraction predicted correct = " + (1-error[1]));
+			
+			writeToFile(SS_fileName, numberOfInputs, input_minValue, input_maxValue, error, time/1000000000d, appendFiles);
+			
 			results = null;
 		}
 		
@@ -85,6 +132,7 @@ public class mainClass {
 			time = System.nanoTime() - time;
 
 			//Output:
+			System.out.println("<<AKS>>");
 			for(int i = 0; i<numberOfInputs; i++){
 				System.out.println("(AKS) The number " + inputs[i] + " is " + (results[i]?"a prime":"a composite") + " -- " +
 						(correctResults[i] == results[i]?"correct.":"INCORRECT!!!"));
@@ -93,6 +141,9 @@ public class mainClass {
 			
 			error = computeError(results,correctResults);
 			System.out.println("Primes fraction predicted correct = " + (1-error[0]) + "; Composite fraction predicted correct = " + (1-error[1]));
+			
+			writeToFile(AKS_fileName, numberOfInputs, input_minValue, input_maxValue, error, time/1000000000d, appendFiles);
+			
 			results = null;
 		}
 		
@@ -106,14 +157,23 @@ public class mainClass {
 			time = System.nanoTime() - time;
 			
 			//Output:
+			System.out.println("<<MR>>");
 			/*for(int i = 0; i<numberOfInputs; i++){
 				System.out.println("(MR) The number " + inputs[i] + " is " + (results[i]?"a prime":"a composite") + " -- " +
 						(correctResults[i] == results[i]?"correct.":"INCORRECT!!!"));
 			}*/
+			for(int i = 0; i<numberOfInputs; i++){
+				if(correctResults[i] != results[i] && correctResults[i] == true)
+				System.out.println("(MR) The number " + inputs[i] + " is " + (results[i]?"a prime":"a composite") + " -- " +
+					(correctResults[i] == results[i]?"correct.":"INCORRECT!!!"));
+			}
 			System.out.println("Execution time was: " + time/1000000000d + "s");
 			
 			error = computeError(results,correctResults);
 			System.out.println("Primes fraction predicted correct = " + (1-error[0]) + "; Composite fraction predicted correct = " + (1-error[1]));
+			
+			writeToFile(MR_fileName, numberOfInputs, input_minValue, input_maxValue, error, time/1000000000d, appendFiles);
+			
 			results = null;
 		}
 		
@@ -121,6 +181,7 @@ public class mainClass {
 		if(doWheelSieve){
 			results = new boolean[numberOfInputs];
 			time = System.nanoTime();
+			System.out.println("<<Wheel-Sieve>>");
 			for(int i = 0; i<numberOfInputs; i++){
 				results[i] = WheelSieve.wheelSieve(inputs[i]);
 				if (results[i] != correctResults[i])
@@ -137,6 +198,9 @@ public class mainClass {
 
 			error = computeError(results,correctResults);
 			System.out.println("Primes fraction predicted correct = " + (1-error[0]) + "; Composite fraction predicted correct = " + (1-error[1]));
+			
+			writeToFile(WheelSieve_fileName, numberOfInputs, input_minValue, input_maxValue, error, time/1000000000d, appendFiles);
+			
 			results = null;
 		}
 		
