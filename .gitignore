@@ -217,3 +217,5 @@ pip-log.txt
 # Java
 *.class
 *.jar
+src/mainClass.java
+*.txt
