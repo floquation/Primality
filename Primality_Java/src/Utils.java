@@ -1,5 +1,6 @@
 
 public class Utils {
+	/*
 	public static int XXXmodular_pow(int a, int b, int m) {
 		int tempo;
 		if (b == 0){
@@ -15,9 +16,9 @@ public class Utils {
 				tempo = ((temp*temp)%m)*a%m;
 		}
 		return tempo;
-	}
+	}*/
 	
-	public static int modular_pow(long a, int b, int m) {
+	public static int modular_pow_old(long a, int b, int m) {
 		a %= m;
 		long product = (1 % m);
 		while (b > 0) {
@@ -32,6 +33,30 @@ public class Utils {
 			}
 		}
 		return (int)product;
+	}
+	
+	public static int modular_pow(long a, int b, int m) {
+		a %= m;
+		long product = (1 % m);
+		while (b > 0) {
+			if (b % 2 == 1)
+				product = (a * product) % m;
+			a = (a * a) % m;
+			b /= 2;
+		}
+		return (int)product;
+	}
+	
+	public static int multiplicativeOrder(long a, int m) {
+		int i = 0;
+		long product = 1;
+		
+		// I hate do while, so let's do more of them just to piss myself off
+		do {
+			product = (a * product) % m;
+			i += 1;
+		} while(product != 1 && product != 0);
+		return i;
 	}
 	
 	/**

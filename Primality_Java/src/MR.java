@@ -2,9 +2,9 @@ public class MR {
 	
 	public static boolean doMR(int n){
 		//Exclude even numbers:
-		if(n%2==0) return false;
+		if(n%2==0) return n == 2;
 		
-		//Step1: compute r and R
+		//Step1: compute r and R such that R * 2^r = (n - 1)
 		int r = 0;		
 		int R = n-1;
 		while(true){
