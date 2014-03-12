@@ -1,3 +1,7 @@
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
 
 public class Utils {
 	/*
@@ -73,4 +77,37 @@ public class Utils {
 		}
 		return a;
 	}
+	
+	public static void factorize(int n, Collection<Integer> factors) {
+		// Trivial factors
+		for (int p: new int[] {2, 3})
+			while (n % p == 0) {
+				factors.add(p);
+				n /= p;
+			}
+		
+		// Other factors
+		for (int i = 6; n > 1; i += 6)
+			for (int p: new int[] {i - 1, i + 1})
+				while (n % p == 0) {
+					factors.add(p);
+					n /= p;
+				}
+		
+		assert(n == 1);
+	}
+	
+	public static int totient(int n) {
+		Set<Integer> factors = new HashSet<Integer>();
+		factorize(n, factors);
+		return totient(n, factors);
+	}
+	
+	public static int totient(int n, Set<Integer> factors) {
+		int totient = n;
+		for (int p: factors)
+			totient -= totient / p;
+		return totient;
+	}
+	
 }
