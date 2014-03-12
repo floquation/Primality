@@ -6,13 +6,13 @@ import java.util.Arrays;
 public class mainClass {
 
 	/* INPUT */
-	static int numberOfInputs = 100000;
+	static int numberOfInputs = 1000;
 	static int input_minValue = 4;
-	static int input_maxValue = 50000;
+	static int input_maxValue = 500;
 	
 	static boolean doTrialDivision = true;
 	static boolean doSS = true;
-	static boolean doAKS = false;
+	static boolean doAKS = true;
 	static boolean doMR = true;
 	static boolean doWheelSieve = true;	
 	
@@ -127,7 +127,7 @@ public class mainClass {
 			results = new boolean[numberOfInputs];
 			time = System.nanoTime();
 			for(int i = 0; i<numberOfInputs; i++){
-				results[i] = AKS.doAKS(inputs[i]);
+				results[i] = AKS2.aks(inputs[i]);
 			}
 			time = System.nanoTime() - time;
 
