@@ -65,7 +65,7 @@ public class Polynomial {
 		return res;
 	}
 	
-	private Polynomial minus(Polynomial other) {
+	public Polynomial minus(Polynomial other) {
 		int max = Math.max(order(), other.order());
 		Polynomial res = new Polynomial();
 		for(int i = 0; i <= max; i++)
@@ -97,34 +97,12 @@ public class Polynomial {
 		Polynomial base = this;
 		Polynomial res = new Polynomial(Arrays.asList(new Integer[]{1}));
 		while(r > 0) {
-			/*if(r % 2 == 0) {
-				base = base.multiply(base).mod(mod, m);
-				r /= 2;
-			} else {
-				res = res.multiply(base).mod(mod, m);
-				r--;
-			}*/
 			if(r % 2 == 1)
 				res = res.multiply(base).mod(mod, m);
 			base = base.multiply(base).mod(mod, m);
 			r /= 2;
 		}
 		return res;
-	}
-	
-	public static boolean polynomialTest(int a, int n, int r) {
-		Polynomial p = new Polynomial(Arrays.asList(new Integer[] {a, 1}));
-		Polynomial m = new Polynomial();
-			m.set(0, -1);
-			m.set(r, 1);
-		Polynomial t = new Polynomial();
-			t.set(0, a);
-			t.set(n, 1);
-		Polynomial q = p.modexp(n, m, n).minus(t).mod(m, n);
-		/*System.out.println(m);
-		System.out.println(t);
-		System.out.println(q);*/
-		return q.order() == -1;
 	}
 
 	// Some informal testing

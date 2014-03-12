@@ -127,7 +127,7 @@ public class mainClass {
 			results = new boolean[numberOfInputs];
 			time = System.nanoTime();
 			for(int i = 0; i<numberOfInputs; i++){
-				results[i] = AKS2.aks(inputs[i]);
+				results[i] = AKS.aks(inputs[i]);
 			}
 			time = System.nanoTime() - time;
 
