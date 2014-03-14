@@ -29,11 +29,16 @@ public class AKS {
 		if(n <= r)
 			return true;
 		
+		//System.out.println("eindbaas");
+		
 		// 5 The polynomial test
 		int upper = (int)(Math.sqrt(Utils.totient(r)) * (Math.log(n) / Math.log(2)));
+		//System.out.println("Uppertop " + upper);
+		//System.out.println("R " + r);
 		for (int a = 1; a < upper; a += 1) {
-			if(!polynomialTest(a, n, r))
-				return false;
+			if(!polynomialTest(Long.valueOf(a), n, r))
+				{//System.out.println("a: " + a);
+				return false;}
 		}
 		return true;
 	}
@@ -43,24 +48,28 @@ public class AKS {
 		return 31 - Integer.numberOfLeadingZeros(bits);
 	}
 	
-	public static boolean polynomialTest(int a, int n, int r) {
-		Polynomial p = new Polynomial(Arrays.asList(new Integer[] {a, 1}));
+	public static boolean polynomialTest(Long a, int n, int r) {
+		Polynomial p = new Polynomial(Arrays.asList(new Long[] {a, 1l}));
 		Polynomial m = new Polynomial();
-			m.set(0, -1);
-			m.set(r, 1);
+			m.set(0, -1l);
+			m.set(r, 1l);
 		Polynomial t = new Polynomial();
 			t.set(0, a);
-			t.set(n, 1);
+			t.set(n, 1l);
 		Polynomial q = p.modexp(n, m, n).minus(t).mod(m, n);
-		/*System.out.println(m);
-		System.out.println(t);
-		System.out.println(q);*/
+		/*System.out.println("p: " + p);
+		System.out.println("m: " + m);
+		System.out.println("t: " + t);
+		System.out.println(p.modexp(n, m, n));
+		System.out.println(p.modexp(n, m, n).minus(t));
+		System.out.println(p.modexp(n, m, n).minus(t).mod(m, n));
+		System.out.println("p^n mod (m, n): " + q);*/
 		return q.order() == -1;
 	}
 	
 	public static void main(String[] args) {
-		for (int i = 0; i <= 1000; i++)
-			System.out.println(i + ": " + AKS.aks(i));
+		//for (int i = 0; i <= 1000; i++)
+			//System.out.println(i + ": " + AKS.aks(i));
 		
 		/*
 		// Crashes on i = 3955
@@ -75,7 +84,14 @@ public class AKS {
 		(AKS) The number 40471 is a composite -- INCORRECT!!!
 		(AKS) The number 40483 is a composite -- INCORRECT!!!
 		(AKS) The number 47189 is a composite -- INCORRECT!!!
-		 */
 		//System.out.println(AKS2.aks(3955));
+		// En nu we voor alles long's gebruiken krijgen we dit weer:
+		(AKS) The number 257 is a composite -- INCORRECT!!!
+		(AKS) The number 257 is a composite -- INCORRECT!!!
+		*/
+		
+		//System.out.println(AKS.aks(257));
+		
+		System.out.println("Polynomial: " + polynomialTest(1l, 257, 71));
 	}
 }

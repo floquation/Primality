@@ -8,13 +8,13 @@ import java.util.List;
  *
  */
 public class Polynomial {
-	List<Integer> polys;
+	List<Long> polys;
 	
 	public Polynomial() {
-		this(new ArrayList<Integer>());
+		this(new ArrayList<Long>());
 	}
 
-	public Polynomial(List<Integer> args) {
+	public Polynomial(List<Long> args) {
 		polys = args;
 	}
 	
@@ -23,16 +23,16 @@ public class Polynomial {
 		return "P" + polys;
 	}
 	
-	public Integer get(int index) {
+	public Long get(int index) {
 		if (index < polys.size())
 			return polys.get(index);
 		else
-			return 0;
+			return 0l;
 	}
 	
-	public void set(int index, Integer value) {
+	public void set(int index, Long value) {
 		while(index >= polys.size())
-			polys.add(0);
+			polys.add(0l);
 		polys.set(index, value);
 	}
 	
@@ -51,7 +51,7 @@ public class Polynomial {
 		return res;
 	}
 	
-	public Polynomial multiply(Integer n) {
+	public Polynomial multiply(Long n) {
 		Polynomial res = new Polynomial();
 		for(int i = 0; i <= order(); i++)
 			res.set(i, n * get(i));
@@ -73,14 +73,30 @@ public class Polynomial {
 		return res;
 	}
 	
-	public Polynomial mod(Polynomial other, Integer m) {
+	public int compare(Polynomial other) {
+		if(this.order() > other.order()) 
+			return 1;
+		else if(this.order() < other.order())
+			return -1;
+		else {
+			for(int k = order(); k >= 0; k--) {
+				if(this.get(k) > other.get(k)) 
+					return 1;
+				else if(this.get(k) < other.get(k))
+					return -1;
+			}
+		}
+		return 0;
+	}
+	
+	public Polynomial mod(Polynomial other, int m) {
 		Polynomial current = this;
 		
-		while(current.order() > other.order() || 
+		/*while(current.order() > other.order() || 
 				(current.order() == other.order() && 
-				 current.get(current.order()) > other.get(other.order())))
+				 current.get(current.order()) > other.get(other.order())))*/
+		while(current.compare(other) > 0)
 		{
-		
 			Polynomial sub = other
 					.shift(current.order() - other.order())
 					.multiply(current.get(current.order()) / other.get(other.order()));
@@ -93,9 +109,24 @@ public class Polynomial {
 		return current;
 	}
 	
+	public Polynomial mod2(Polynomial other, int m) {
+		Polynomial current = this;
+		
+		while(current.order() != 0 && current.order() >= other.order()) {
+			long t = current.get(current.order()) / other.get(other.order());
+			int t2 = current.order() - other.order();
+			current = current.minus(other.shift(t2).multiply(t));
+			/*Polynomial sub = other
+					.shift(current.order() - other.order())
+					.multiply(current.get(current.order()) / other.get(other.order()));
+			current = current.minus(sub);*/
+		}
+		return current;
+	}
+	
 	public Polynomial modexp(int r, Polynomial mod, int m) {
 		Polynomial base = this;
-		Polynomial res = new Polynomial(Arrays.asList(new Integer[]{1}));
+		Polynomial res = new Polynomial(Arrays.asList(new Long[]{1l}));
 		while(r > 0) {
 			if(r % 2 == 1)
 				res = res.multiply(base).mod(mod, m);
@@ -107,10 +138,10 @@ public class Polynomial {
 
 	// Some informal testing
 	public static void main(String[] args) {
-		Polynomial p = new Polynomial(Arrays.asList(new Integer[] {3, 12, 4, 1}));
+		Polynomial p = new Polynomial(Arrays.asList(new Long[] {3l, 12l, 4l, 1l}));
 		Polynomial h = p.multiply(p);
 		System.out.println(h);
-		Polynomial g = new Polynomial(Arrays.asList(new Integer[] {-1, 0, 0, 0, 0, 1}));
+		Polynomial g = new Polynomial(Arrays.asList(new Long[] {-1l, 0l, 0l, 0l, 0l, 1l}));
 		Polynomial f = h.mod(g, 17);
 		System.out.println(f);
 	}
