@@ -51,10 +51,10 @@ public class Polynomial {
 		return res;
 	}
 	
-	public Polynomial multiply(Long n) {
+	private Polynomial multiply(Long n, int exp) {
 		Polynomial res = new Polynomial();
 		for(int i = 0; i <= order(); i++)
-			res.set(i, n * get(i));
+			res.set(i + exp, n * get(i));
 		return res;
 	}
 	
@@ -91,15 +91,12 @@ public class Polynomial {
 	
 	public Polynomial mod(Polynomial other, int m) {
 		Polynomial current = this;
-		
-		/*while(current.order() > other.order() || 
-				(current.order() == other.order() && 
-				 current.get(current.order()) > other.get(other.order())))*/
+
 		while(current.compare(other) > 0)
 		{
-			Polynomial sub = other
-					.shift(current.order() - other.order())
-					.multiply(current.get(current.order()) / other.get(other.order()));
+			Polynomial sub = other.multiply(
+					current.get(current.order()) / other.get(other.order()), 
+					current.order() - other.order());
 			current = current.minus(sub);
 		}
 		
@@ -109,22 +106,7 @@ public class Polynomial {
 		return current;
 	}
 	
-	public Polynomial mod2(Polynomial other, int m) {
-		Polynomial current = this;
-		
-		while(current.order() != 0 && current.order() >= other.order()) {
-			long t = current.get(current.order()) / other.get(other.order());
-			int t2 = current.order() - other.order();
-			current = current.minus(other.shift(t2).multiply(t));
-			/*Polynomial sub = other
-					.shift(current.order() - other.order())
-					.multiply(current.get(current.order()) / other.get(other.order()));
-			current = current.minus(sub);*/
-		}
-		return current;
-	}
-	
-	public Polynomial modexp(int r, Polynomial mod, int m) {
+	public Polynomial modular_pow(int r, Polynomial mod, int m) {
 		Polynomial base = this;
 		Polynomial res = new Polynomial(Arrays.asList(new Long[]{1l}));
 		while(r > 0) {
