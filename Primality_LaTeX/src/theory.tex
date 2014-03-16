@@ -3,9 +3,9 @@ There exist several algorithms to check whether a given integer, $n$, is a prime
 The easiest among them all is the ``trial division'' (TD) algorithm, described in \secref{sec:TD_theory}.
 It is a deterministic algorithm with a $O(\sqrt{n})$ complexity.
 Several different algorithms have been devised, both deterministic and random, to beat this complexity.
-All randomized algorithms below are based on ``Femat's Theorem'' for primality, which says that ``$\forall \, \mathrm{prime} \, n$,
+All randomized algorithms below are based on ``Femat's Theorem'' for primality \cite{book:RA}, which says that ``$\forall \, \mathrm{prime} \, n$,
 \begin{equation}
-	a^{n-1} \equiv 1 \mathrm{(mod } n \mathrm{)},
+	a^{n-1} \equiv 1 \mathrm{(mod}\, n\, \mathrm{)},
 \end{equation}
 $\forall a \in Z_n^*$''.
 Sadly, there does as well exist an infinite set of composite numbers which satisfy this criterion.

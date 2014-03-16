@@ -10,9 +10,9 @@ import java.util.Arrays;
 public class mainClass {
 
 	/* INPUT */
-	static int numberOfInputs = 10000000;
-	static int input_minValue = 2;
-	static int input_maxValue = 5000;
+	static int numberOfInputs = 10000;
+	static int input_minValue = 993444413;
+	static int input_maxValue = input_minValue;
 	
 	static boolean doTrialDivision = true;
 	static boolean doSS = true;
@@ -125,19 +125,19 @@ public class mainClass {
 			results = new boolean[numberOfInputs];
 			time = System.nanoTime();
 			for(int i = 0; i<numberOfInputs; i++){
-				time = System.nanoTime() - time;
-				System.out.println("(AKS): " + i + "/" + numberOfInputs + "; n = " + inputs[i]);
-				time = time-(System.nanoTime() - time);
+				//time = System.nanoTime() - time;
+				//System.out.println("(AKS): " + i + "/" + numberOfInputs + "; n = " + inputs[i]);
+				//time = time-(System.nanoTime() - time);
 				results[i] = AKS.aks(inputs[i]);
 			}
 			time = System.nanoTime() - time;
 
 			//Output:
 			System.out.println("<<AKS>>");
-			for(int i = 0; i<numberOfInputs; i++){
+			/*for(int i = 0; i<numberOfInputs; i++){
 				System.out.println("(AKS) The number " + inputs[i] + " is " + (results[i]?"a prime":"a composite") + " -- " +
 						(correctResults[i] == results[i]?"correct.":"INCORRECT!!!"));
-			}
+			}*/
 			System.out.println("Execution time was: " + time/1000000000d + "s");
 			
 			error = computeError(results,correctResults);

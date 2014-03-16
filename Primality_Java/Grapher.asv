@@ -1,0 +1,15 @@
+load SS.txt;
+load TD.txt;
+load AKS.txt;
+load MR.txt;
+load WS.txt;
+
+x = SS(3:end,2);
+
+figure(1)
+plot(x,SS(3:end,4), 'ob')
+hold on
+plot(x,AKS(3:end,4))
+hold off
+xlabel('n')
+ylabel('time')
