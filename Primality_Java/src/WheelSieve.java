@@ -1,4 +1,8 @@
-
+/**
+ * 
+ * @author Laurent Verweijen
+ *
+ */
 public class WheelSieve {
 	public static boolean wheelSieve(int n) {
 		// Negative check

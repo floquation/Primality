@@ -1,9 +1,21 @@
 \section{Results}
-I have simulated Argon using 864 particles for solid, liquid and gas phase.
-I have succesfully computed the pressure and the pair-correlation function. I
-have computed the diffusion coefficient, but an error remains. I have
-parallelised the force calculation for a speed-up of 2.33 on 3 cores. Then I
-have studied the phase transition from solid to liquid and posed a hypothesis
-when this phase transition occures.
-Future research is required to study the crystallization process (liquid to
-solid), for very small temperature steps are required.
+
+
+\begin{table}
+\centering
+\caption{Pressure for several test cases. The standard deviation for each
+measurement is $O(3 \cdot 10^{-3})$.} \begin{tabular}{|c|c|c|c|c|} \hline
+$\rho$&$T_{me}$&$T_{Verlet}$&$(\beta P/\rho)_{me}$&$(\beta P/\rho)_{Verlet}$ \\
+\hline
+0.88&0.945&0.94&2.78&2.72\\ \hline
+0.85&1.119&1.128&2.69&2.78\\ \hline
+0.75&0.889&0.881&-0.12&-0.12\\ \hline
+0.65&2.546&2.557&2.11&2.14\\ \hline
+0.45&1.754&1.744&0.75&0.74\\ \hline
+0.45&1.548&1.552&0.53&0.75\\ \hline
+0.35&1.433&1.418&0.39&0.40\\ \hline
+\end{tabular}
+\label{tab:pressure}
+\end{table}
+
+

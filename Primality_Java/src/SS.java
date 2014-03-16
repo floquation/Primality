@@ -1,5 +1,9 @@
 
-
+/**
+ * 
+ * @author Laurent Verweijen
+ *
+ */
 public class SS {
 
 	/**

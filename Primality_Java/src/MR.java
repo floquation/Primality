@@ -1,3 +1,8 @@
+/**
+ * 
+ * @author Kevin van As
+ *
+ */
 public class MR {
 	
 	public static boolean doMR(int n){

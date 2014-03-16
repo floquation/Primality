@@ -1,3 +1,8 @@
+/**
+ * 
+ * @author Kevin van As
+ *
+ */
 public class TrialDivision {
 	public static boolean doTrialDivision(int val){
 		int limit = (int)Math.sqrt(val);

@@ -1,5 +1,10 @@
 import java.util.Arrays;
 
+/**
+ * 
+ * @author Laurent Verweijen
+ *
+ */
 public class AKS {
 	public static boolean aks(int n) {
 		if (n < 2) return false;

@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  * Class that represents a + bx + cx**2 + dx**3 + ...
- * @author laurent
+ * @author Laurent Verweijen
  *
  */
 public class Polynomial {

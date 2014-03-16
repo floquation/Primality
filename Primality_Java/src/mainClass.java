@@ -2,17 +2,21 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
 
-
+/**
+ * 
+ * @author Kevin van As
+ *
+ */
 public class mainClass {
 
 	/* INPUT */
-	static int numberOfInputs = 1000;
-	static int input_minValue = 4;
-	static int input_maxValue = 500;
+	static int numberOfInputs = 10000000;
+	static int input_minValue = 2;
+	static int input_maxValue = 5000;
 	
 	static boolean doTrialDivision = true;
 	static boolean doSS = true;
-	static boolean doAKS = true;
+	static boolean doAKS = false;
 	static boolean doMR = true;
 	static boolean doWheelSieve = true;	
 	
@@ -60,12 +64,6 @@ public class mainClass {
 		for(int i = 0; i<numberOfInputs; i++){
 			inputs[i] = (int)Math.round(Math.random()*(input_maxValue-input_minValue)) + input_minValue;
 		}
-		inputs[0] = 7;
-		inputs[1] = 34123;
-		inputs[2] = 40471;
-		inputs[3] = 40483;
-		inputs[4] = 47189;
-		inputs[5] = 3;
 		Arrays.sort(inputs);
 
 		//All algorithms:
@@ -127,6 +125,9 @@ public class mainClass {
 			results = new boolean[numberOfInputs];
 			time = System.nanoTime();
 			for(int i = 0; i<numberOfInputs; i++){
+				time = System.nanoTime() - time;
+				System.out.println("(AKS): " + i + "/" + numberOfInputs + "; n = " + inputs[i]);
+				time = time-(System.nanoTime() - time);
 				results[i] = AKS.aks(inputs[i]);
 			}
 			time = System.nanoTime() - time;
