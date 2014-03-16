@@ -3,20 +3,33 @@ There exist several algorithms to check whether a given integer, $n$, is a prime
 The easiest among them all is the ``trial division'' (TD) algorithm, described in \secref{sec:TD_theory}.
 It is a deterministic algorithm with a $O(\sqrt{n})$ complexity.
 Several different algorithms have been devised, both deterministic and random, to beat this complexity.
+All randomized algorithms below are based on ``Femat's Theorem'' for primality, which says that ``$\forall \, \mathrm{prime} \, n$,
+\begin{equation}
+	a^{n-1} \equiv 1 \mathrm{(mod } n \mathrm{)},
+\end{equation}
+$\forall a \in Z_n^*$''.
+Sadly, there does as well exist an infinite set of composite numbers which satisfy this criterion.
+They are the so-called ``Carmichael numbers''.
+Each of the randomized algorithms below deals with these numbers in their own way.
 
 \subsection{Trial Division} \label{sec:TD_theory}
-
+In the trial division (TD), we start with the very definition of a prime number: it is only dividable by 1 and itself.
+To test this statement, we divide by every integer up to $\sqrt{n}$.
+If any of those divisions result in an integer, the number is not a prime.
+Otherwise, it must neccesarily be a prime, from the very definition.
+TD is a deterministic algorithm with $O(\sqrt{n})$ complexity.
 
 \subsection{Wheel-Sieve} \label{sec:WS_theory}
-
+%TODO
 
 \subsection{Solovay-Strassen} \label{sec:SS_theory}
-
+%TODO
 
 \subsection{Miller-Rabin} \label{sec:MR_theory}
-
+Miller-Rabin (MR) is a randomized algorithm with a one-sided error; It is an $RP$ algorithm for compositeness.
+If $n$ is a prime number, it will return prime. If $n$ is a composite, it may incorrectly say prime.
 
 \subsection{Angrawal-Kayal-Saxena} \label{sec:AKS_theory}
-
+%TODO
 
 
