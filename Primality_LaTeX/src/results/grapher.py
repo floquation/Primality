@@ -44,7 +44,7 @@ def format(s):
 
 def format2(s):
     try:
-        return str(s)
+        return str(1 - s)
     except Exception:
         return s
 
@@ -59,7 +59,7 @@ for t in range(31):
 
 for t in range(31):
     if t < 13:
-        print (" & ".join(map(str,[x[t], ss[t, 1], aks[t, 1], mr[t, 1], td[t, 1], ws[t, 1]])), "\\\\")
+        print (" & ".join(map(format2,[x[t], ss[t, 1], aks[t, 1], mr[t, 1], td[t, 1], ws[t, 1]])), "\\\\")
     else:
         #print (" & ".join(map(lambda s: str(int(s)) if s != "-" else s,[x[t], ss[t, 1], '-', mr[t, 1], td[t, 1], ws[t, 1]])))
-        print(" & ".join(str(s) for s in [x[t], ss[t, 1], '-', mr[t, 1], td[t, 1], ws[t, 1]]), "\\\\")
+        print(" & ".join(format2(s) for s in [x[t], ss[t, 1], '-', mr[t, 1], td[t, 1], ws[t, 1]]), "\\\\")
