@@ -10,7 +10,7 @@ For each length $k$, a sample of 1000000 random numbers was generated in the int
 \subsection{Measurements}
 Since all the probablitic algorithm have a one-sided error, we decided to look at the probability that a number classified as prime is actually prime.
 So we tried to estimate $Pr(\text{x is prime} | \text{x is detected as prime}$.
-This probability can be approximated by $E = 1 - \frac{TP}{TP + FP}$, where TP is the number of prime numbers that are classified correctly and FP is the number of non-primes to be classified as prime.
+This probability can be approximated by $E = \frac{FP}{TP + FP}$, where TP is the number of prime numbers that are classified correctly and FP is the number of non-primes to be classified as prime.
 So in the experiments we used $E$ as an error measure.
 
 \section{Results}
