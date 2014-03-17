@@ -4,13 +4,11 @@
 %For small numbers, simple techniques like trial division seem to work well.
 %For big numbers, probablistic method seems to perform better.
 
-As we see the Trial Divion and Wheel Sieve algorithm perform well for small data, but for big numbers they are exponential in the input size.
-They do have an error rate of $0\%$.
-For bigger data SS and MR perform better.
-MR seems to outperform SS both in runtime and in error rate.
-However for the runtime this might depend on how we implemented those since both have the same time complexity.
-Although AKS would theoretically run in polynomial time, it really is the snail of the bunch and therefore it has been decided to drop the results for integers above $2^{13}$.
+We have looked at the behaviour of different common primality tests.
+Simple deterministic algorithms work very well for small primes but get slow when tested on large numbers.
 
-Something else that looks interesting is that the error is low for both small inputs and large inputs.
-For small inputs, it's probably that there are more random numbers for which the SS and MR tests succeed.
-For large inputs the error is probably small, because for larger numbers, primes get more rare and it is more likely that the algorithm is being tested on a lot of composite numbers.
+Probablitic algorithms scale well with their inputs and have small error percentages.
+They also have the nice property that they can be repeated multiple times when even smaller errors are required.
+
+AKS might be nice for theoretical reasons, but in practice the algorithm is rather slow.
+Maybe the algorithm might be more practical if some optimizations are added, but currently it doesn't seem really feasible for practical purposes.

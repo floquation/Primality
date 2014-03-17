@@ -8,8 +8,27 @@ For each length $k$, a sample of 1000000 random numbers was generated in the int
     For AKS these experiments had to be aborted at a certain point, because this algorithm turned out to be very slow.
 
 \section{Results}
+\label{sec:results}
 
 We can see the runtime in Table \ref{table:runtime} and we can see the runtime plotted in Figure \ref{fig:runtime}.
+
+As we see the Trial Divion and Wheel Sieve algorithm perform well for small data, but for big numbers they are exponential in the input size.
+As these algorithms are deterministic, the error rate on these numbers is $0\%$.
+
+For bigger data SS and MR perform better in execution time.
+MR seems to outperform SS both in runtime and in error rate.
+However for the runtime this might depend on how we implemented those since theoretically both have about the same time complexity.
+
+Although AKS would theoretically run in polynomial time, it really is the snail of the bunch and therefore it has been decided to drop the results for integers above $2^{13}$.
+In the runtime graph, the line for AKS is almost a straight vertical line.
+It appears that AKS is especially slow when it's running on a number that is prime.
+We performed an additional test of AKS on numbers in the range 2 - 500 and noticed that for composite numbers, the algorithm generally finished in less than a second, but when ran on both prime and composite numbers, the algorithm could last up to $10e9$s.
+This has been summarized in Table \ref{tab:pressure}.
+
+Something else that looks interesting is that for the probablistic methods the error is low for both small and large inputs.
+For small inputs, this is probably because there are many small primes numbers and for prime numbers these tests never fail. %more random numbers for which the SS and MR tests succeed.
+For large inputs the error is probably small, because large numbers are more likely to have many divisors and therefore the algorithms might be more likely to pick a random number that has factors in common with those big numbers.
+%, primes get more rare and it is more likely that the algorithm is being tested on a lot of composite numbers.
 
 \begin{table}
     \centering
