@@ -3,9 +3,11 @@
 \section{Experiments}
 \label{sec:experiments}
 
-Experiments have been performed by trying input sizes of different lengths.
-For each length $k$, a sample of 1000000 random numbers was generated in the interval $[2^{k-1}, 2^k>$ and for these numbers we recorded the runtime and the fraction of samples that was predicted correctly.
-    For AKS these experiments had to be aborted at a certain point, because this algorithm turned out to be very slow.
+Experiments have been performed as a function of $n$ in the form of intervals around $n$.
+These intervals have a variable length and are given by $[2^{k-1}, 2^k>$ for the $k$'th interval.
+For each interval, we sampled 1,000,000 random numbers,
+and for these numbers we measured the runtime and the fraction of samples that were predicted correctly.
+For AKS these experiments had to be aborted at a certain point, because our implementation of the algorithm was very slow.
 
 \subsection{Measurements}
 Since all the probablitic algorithm have a one-sided error, we decided to look at the probability that a number classified as prime is actually prime.
@@ -16,25 +18,14 @@ So in the experiments we used $E$ as an error measure.
 \section{Results}
 \label{sec:results}
 
-We can see the runtime in Table \ref{table:runtime} and we can see the runtime plotted in Figure \ref{fig:runtime}.
+\tabref{table:runtime} and \figref{fig:runtime} show the runtime as a function of the input size, $\log n$.
 
-As we see the Trial Divion and Wheel Sieve algorithm perform well for small data, but for big numbers they are exponential in the input size.
-As these algorithms are deterministic, the error rate on these numbers is $0\%$.
+Evidently, TD and WS perform well for small $n$, whereas for big $n$ they are exponential in the input size.
 
-For bigger data SS and MR perform better in execution time.
+As $n$ increases, SS and MR perform better than TD and WS in terms of execution time.
 MR seems to outperform SS both in runtime and in error rate.
-However for the runtime this might depend on how we implemented those since theoretically both have about the same time complexity.
+Then again, this conclusion is only valid for our implementation of the algorithms, since both algorithms have about the same time complexity.
 
-Although AKS would theoretically run in polynomial time, it really is the snail of the bunch and therefore it has been decided to drop the results for integers above $2^{13}$.
-In the runtime graph, the line for AKS is almost a straight vertical line.
-It appears that AKS is especially slow when it's running on a number that is prime.
-We performed an additional test of AKS on numbers in the range 2 - 500 and noticed that for composite numbers, the algorithm generally finished in less than a second, but when ran on both prime and composite numbers, the algorithm could last up to $10e9$s.
-This has been summarized in Table \ref{tab:pressure}.
-
-Something else that looks interesting is that for the probablistic methods the error is low for both small and large inputs.
-For small inputs, this is probably because there are many small primes numbers and for prime numbers these tests never fail. %more random numbers for which the SS and MR tests succeed.
-For large inputs the error is probably small, because large numbers are more likely to have many divisors and therefore the algorithms might be more likely to pick a random number that has factors in common with those big numbers.
-%, primes get more rare and it is more likely that the algorithm is being tested on a lot of composite numbers.
 
 \begin{table}
     \centering
@@ -109,6 +100,38 @@ For large inputs the error is probably small, because large numbers are more lik
     \label{table:runtime}
 \end{table}
 
+\begin{figure}
+    \centering
+    \includegraphics[width=\columnwidth]{results/runtime.pdf}
+    \caption{Execution time as function of $\log n$}
+    \label{fig:runtime}
+\end{figure}
+
+Although AKS would theoretically run in polynomial time,
+it's the snail of the five algorithms,
+and therefore it has been decided to drop the results for integers above $2^{13}$.
+In the runtime graph, the line for AKS is almost a straight vertical line.
+We performed an additional test of the AKS algorithm on numbers in the range 2 - 500, and noticed that for composite numbers
+the algorithm generally finished in less than a second, but when ran on both prime and composite numbers, the algorithm could last up to $10^9$s (shown in \tabref{tab:pressure}).
+From this it follows that AKS is particularily slow when executed on prime $n$.
+
+\begin{table}
+\centering
+\caption{Execution time for AKS in the number range 2-500. Each datapoint consists of 10,000 samples.}
+\begin{tabular}{|c|c|} \hline
+Prime numbers included & $O(10^9)$s\\ \hline
+Composite numbers only & $O(1)$s\\ \hline
+\end{tabular}
+\label{tab:pressure}
+\end{table}
+
+\tabref{table:results} and \figref{fig:results} show the error as a function of the input size.
+From the figure it follows that for the probablistic methods the error is small for both small and large $n$.
+For small $n$, this is because there are many small primes numbers and for prime numbers these tests never fail. %more random numbers for which the SS and MR tests succeed.
+Consequently, the size of the set of numbers the algorithm may potentially fail on is extremely small.
+For large $n$, the error is small, because large numbers are more likely to have many divisors and therefore the algorithms are more likely to pick a random number that has factors in common with those big numbers.
+%, primes get more rare and it is more likely that the algorithm is being tested on a lot of composite numbers.
+Evidently, the deterministic algorithms have a 0 error.
 
 \begin{table}
     \centering
@@ -185,13 +208,6 @@ For large inputs the error is probably small, because large numbers are more lik
 
 \begin{figure}
         \centering
-        \includegraphics[width=\columnwidth]{results/runtime.pdf}
-        \caption{Execution time as function of $\log n$}
-        \label{fig:runtime}
-\end{figure}
-
-\begin{figure}
-        \centering
         \includegraphics[width=\columnwidth]{results/performance.pdf}
         \caption{Execution time as function of $\log n$}
         \label{fig:results}
@@ -212,16 +228,6 @@ For large inputs the error is probably small, because large numbers are more lik
 % \end{tabular}
 % \label{tab:pressure}
 % \end{table}
-
-\begin{table}
-\centering
-\caption{Execution time for AKS in the number range 2-500. Each datapoint consists of 10,000 samples.}
-\begin{tabular}{|c|c|} \hline
-Prime numbers included & $O(10^9)$s\\ \hline
-Composite numbers only & $O(1)$s\\ \hline
-\end{tabular}
-\label{tab:pressure}
-\end{table}
 
 
 
