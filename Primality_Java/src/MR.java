@@ -6,6 +6,9 @@
 public class MR {
 	
 	public static boolean doMR(int n){
+		// Ignore 1 and 0
+		if(n < 2) return false;
+		
 		//Exclude even numbers:
 		if(n%2==0) return n == 2;
 		

@@ -3,7 +3,7 @@ There exist several algorithms to check whether a given integer, $n$, is a prime
 The easiest among them all is the ``trial division'' (TD) algorithm, described in \secref{sec:TD_theory}.
 It is a deterministic algorithm with a $O(\sqrt{n})$ complexity.
 Several different algorithms have been devised, both deterministic and random, to beat this complexity.
-All randomized algorithms below are based on ``Femat's Theorem'' for primality \cite{book:RA}, which says that ``$\forall \, \mathrm{prime} \, n$,
+All randomized algorithms below are based on ``Fermat's Theorem'' for primality \cite{book:RA}, which says that for every prime number $n$: %``$\forall \, \mathrm{prime} \, n$,
 \begin{equation}
 	a^{n-1} \equiv 1 \mathrm{(mod}\, n\, \mathrm{)},
 \end{equation}
@@ -16,20 +16,33 @@ Each of the randomized algorithms below deals with these numbers in their own wa
 In the trial division (TD), we start with the very definition of a prime number: it is only dividable by 1 and itself.
 To test this statement, we divide by every integer up to $\sqrt{n}$.
 If any of those divisions result in an integer, the number is not a prime.
-Otherwise, it must neccesarily be a prime, from the very definition.
+Otherwise, it must necessarily be a prime, from the very definition.
 TD is a deterministic algorithm with $O(\sqrt{n})$ complexity.
 
 \subsection{Wheel-Sieve} \label{sec:WS_theory}
-%TODO
+Wheel sieve is an optimized version of Trial Division.
+The algorithm works by taking the first $k$ prime numbers $p_1=2, p_2\ldots p_k$ as initial prime numbers.
+First the algorithm tests division and equality by each of these $k$ numbers.
+If that fails, it takes the product $m = \prod p_i$.
+Then it will test divisibility of the candidate by all numbers $i$, such that $\forall p: i \neq p (\mod m)$ where $p$ is one of the initial prime numbers.
+Unfortunately, this algorithm only gives a linear speedup in comparison with trial division.
 
 \subsection{Solovay-Strassen} \label{sec:SS_theory}
-%TODO
+Solovoy Strassen is a randomized primality test based on ``Fermat's Theorem''.
+The algorithm will never error on prime number but it has a probability of at most $(\frac{1}{2})^k$ of incorrectly identifying a composite number as prime when the algorithm is repeated $k$ times.
+Each trial of the algorithm has a runtime of $O((\log n)^3)$ as this is the time needed for modular exponentiation.
 
 \subsection{Miller-Rabin} \label{sec:MR_theory}
-Miller-Rabin (MR) is a randomized algorithm with a one-sided error; It is an $RP$ algorithm for compositeness.
-If $n$ is a prime number, it will return prime. If $n$ is a composite, it may incorrectly say prime.
+The Miller Rabin primality test is also based on ``Fermat's Theorem'' and will never error on a prime number either.
+On composite numbers it will error with a probability smaller than $\frac{1}{4}$. \cite{MR}
+Again each trial of the algorithm has a runtime of $O((\log n)^3)$ as this is the time needed for modular exponentiation.
+
+
+%Miller-Rabin (MR) is a randomized algorithm with a one-sided error; It is an $RP$ algorithm for compositeness.
+%If $n$ is a prime number, it will return prime. If $n$ is a composite, it may incorrectly say prime.
 
 \subsection{Angrawal-Kayal-Saxena} \label{sec:AKS_theory}
-%TODO
+Angrawal-Kayal-Saxena (AKS) is a polynomial deterministic primality test.
+In \cite{AKS} the authors state that the runtime of this algorithm is at most $O((\log n)^{21/2})$.
 
 
