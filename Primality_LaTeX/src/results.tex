@@ -9,10 +9,10 @@ For each interval, we sampled 1,000,000 random numbers,
 and for these numbers we measured the runtime and the fraction of samples that were predicted correctly.
 For AKS these experiments had to be aborted at a certain point, because our implementation of the algorithm was very slow.
 
-\subsection{Measurements}
+\subsection{Measuring the error}
 Since all the probablitic algorithm have a one-sided error, we decided to look at the probability that a number classified as prime is actually prime.
-So we tried to estimate $Pr(\text{x is prime} | \text{x is detected as prime}$.
-This probability can be approximated by $E = \frac{FP}{TP + FP}$, where TP is the number of prime numbers that are classified correctly and FP is the number of non-primes to be classified as prime.
+So we tried to estimate $Pr(\text{x is prime} | \text{x is detected as prime})$.
+This probability can be approximated by $E = \frac{FP}{TP + FP}$, where $TP$ is the number of prime numbers that are classified correctly and $FP$ is the number of non-primes to be classified as prime.
 So in the experiments we used $E$ as an error measure.
 
 \section{Results}
