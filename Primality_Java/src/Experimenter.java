@@ -9,6 +9,7 @@ public class Experimenter {
 	public static void main(String[] args) {
 		long[] times = new long[maxLog];
 		double[] results = new double[maxLog];
+		int actual = 0;
 		
 		for (int k = 0; k < maxLog; k++) {
 			int[] nums = new int[numTrials];

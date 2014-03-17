@@ -13,7 +13,7 @@ They are the so-called ``Carmichael numbers''.
 Each of the randomized algorithms below deals with these numbers in their own way.
 
 \subsection{Trial Division} \label{sec:TD_theory}
-In the trial division (TD) algorithm, we start with the very definition of a prime number: it is only dividable by 1 and itself.
+In the trial division (TD) algorithm, we start with the very definition of a prime number: a positive integer greater than 1 that is only divisible by 1 and itself.
 To test this statement, we divide by every integer up to $\sqrt{n}$.
 If any of those divisions result in an integer, the number is not a prime.
 Otherwise, it must necessarily be a prime, from the very definition.
@@ -22,11 +22,11 @@ TD is a deterministic algorithm with $O(\sqrt{n})$ complexity.
 \subsection{Wheel-Sieve} \label{sec:WS_theory}
 The Wheel-Sieve (WS) algorithm is an optimized version of TD.
 The algorithm takes the first $k$ prime numbers (hard-coded, or with a cheap primality algorithm) $p_1=2, p_2, \ldots, p_k$ as initial prime numbers.
-First the algorithm uses trial division for these $k$ numbers to see whether $n$ is dividable by any of these numbers.
+First the algorithm uses trial division for these $k$ numbers to see whether $n$ is divisible by any of these numbers.
 
 Since we only take the first $k$ prime numbers, which may be very far off from $n$, further steps are required.
 Let, $m = \prod p_i$,
-then the algorithm will test divisibility of $n$ by all numbers $l$, such that $\forall p_i: l \neq p_i (\mod m)$.
+then the algorithm will test divisibility of $n$ by all numbers $l$, such that $\forall p_i: l \neq p_i (\mathrm{mod}\, m)$.
 Unfortunately, this algorithm gives only a linear speedup in comparison with trial division.
 
 \subsection{Solovay-Strassen} \label{sec:SS_theory}
